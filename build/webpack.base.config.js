@@ -10,7 +10,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
 module.exports = {
   devtool: isProd
     ? false
@@ -31,11 +30,11 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options:  Object.assign(vueConfig, {
+        options:  {
           compilerOptions: {
             preserveWhitespace: false
           }
-        }) 
+        }
       },
       {
         test: /\.tsx?$/,
@@ -61,15 +60,18 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
-      // {
-      //   test: /\.css$/,
-      //   use: isProd
-      //     ? ExtractTextPlugin.extract({
-      //         use: 'css-loader?minimize',
-      //         fallback: 'vue-style-loader'
-      //       })
-      //     : ['vue-style-loader', 'css-loader']
-      // }
+      {
+        test: /\.css$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+              use: [
+                'css-loader?minimize',
+                'postcss-loader'
+              ],
+              fallback: 'vue-style-loader'
+            })
+          : ['vue-style-loader', 'css-loader', 'postcss-loader']
+      },
       {
         test: /\.less$/,
         use: isProd
@@ -79,11 +81,12 @@ module.exports = {
                   loader: 'css-loader',
                   options: { minimize: true }
                 },
+                'postcss-loader',
                 'less-loader'
               ],
               fallback: 'vue-style-loader'
             })
-          : ['vue-style-loader', 'css-loader', 'less-loader']
+          : ['vue-style-loader', 'css-loader', 'postcss-loader','less-loader']
       },
     ]
   },
