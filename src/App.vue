@@ -18,6 +18,7 @@ export default class App extends Vue {
 
 <style lang="less">
 @import url('./assets/less/index.less');
+// @import url('vant/lib/index.css');
 #app {
   position: relative;
   height: 100%;

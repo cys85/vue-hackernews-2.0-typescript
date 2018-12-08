@@ -22,6 +22,11 @@ export function createRouter (): Router {
             name: 'index',
             component: () => import('../views/Home.vue'),
           },
+          {
+            path: '/list-demo',
+            name: 'list-demo',
+            component: () => import('../views/vant-demo/ListDemo.vue'),
+          }
         ]
       },
     ]
