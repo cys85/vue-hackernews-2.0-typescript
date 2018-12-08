@@ -25,6 +25,7 @@ module.exports = merge(base, {
   }),
   plugins: [
     new webpack.DefinePlugin({
+      'process.env': require(process.env.NODE_ENV === 'production' ? '../config/prod.env' : '../config/dev.env'),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"'
     }),

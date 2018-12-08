@@ -4,9 +4,7 @@ import Router, { RouterOptions } from 'vue-router'
 Vue.use(Router)
 
 // route-level code splitting
-const createListView = (id: string) => () => import('../views/CreateListView').then((m: any) => m.default(id))
-const ItemView = () => import('../views/ItemView.vue')
-const UserView = () => import('../views/UserView.vue')
+import MainLayout from '../layouts/MainLayout.vue';
 
 export function createRouter (): Router {
   return new Router({
@@ -14,14 +12,18 @@ export function createRouter (): Router {
     fallback: false,
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes: [
-      { path: '/top/:page(\\d+)?', component: createListView('top') },
-      { path: '/new/:page(\\d+)?', component: createListView('new') },
-      { path: '/show/:page(\\d+)?', component: createListView('show') },
-      { path: '/ask/:page(\\d+)?', component: createListView('ask') },
-      { path: '/job/:page(\\d+)?', component: createListView('job') },
-      { path: '/item/:id(\\d+)', component: ItemView },
-      { path: '/user/:id', component: UserView },
-      { path: '/', redirect: '/top' }
+      {
+        path: '/',
+        name: 'home',
+        component: MainLayout,
+         children: [
+          {
+            path: '/home',
+            name: 'index',
+            component: () => import('../views/Home.vue'),
+          },
+        ]
+      },
     ]
   } as RouterOptions)
 }

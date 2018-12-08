@@ -10,20 +10,20 @@
 </template>
 
 <script lang="ts">
-export default {
-  data () {
-    return {
-      percent: 0,
-      show: false,
-      canSuccess: true,
-      duration: 3000,
-      height: '2px',
-      color: '#ffca2b',
-      failedColor: '#ff0000',
-    };
-  },
-  methods: {
-    start () {
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+@Component
+export default class ProgressBar extends Vue {
+  public percent = 0;
+  public show = false;
+  public canSuccess = true;
+  public duration = 3000;
+  public height = '2px';
+  public color = '#ffca2b';
+  public failedColor = '#ff0000';
+  public _timer: any;
+  public _cut: any;
+  public start() {
       this.show = true;
       this.canSuccess = true;
       if (this._timer) {
@@ -36,36 +36,36 @@ export default {
         if (this.percent > 95) {
           this.finish();
         }
-      }, 100)
+      }, 100);
       return this;
-    },
-    set (num: number) {
+    }
+    public set(num: number) {
       this.show = true;
       this.canSuccess = true;
       this.percent = Math.floor(num);
       return this;
-    },
-    get () {
+    }
+    public get() {
       return Math.floor(this.percent);
-    },
-    increase (num: number) {
+    }
+    public increase(num: number) {
       this.percent = this.percent + Math.floor(num);
       return this;
-    },
-    decrease (num: number) {
+    }
+    public decrease(num: number) {
       this.percent = this.percent - Math.floor(num);
       return this;
-    },
-    finish () {
+    }
+    public finish() {
       this.percent = 100;
       this.hide();
       return this;
-    },
-    pause () {
+    }
+    public pause() {
       clearInterval(this._timer);
       return this;
-    },
-    hide () {
+    }
+    public hide() {
       clearInterval(this._timer);
       this._timer = null;
       setTimeout(() => {
@@ -73,22 +73,21 @@ export default {
         this.$nextTick(() => {
           setTimeout(() => {
             this.percent = 0;
-          }, 200)
-        })
-      }, 500)
+          }, 200);
+        });
+      }, 500);
       return this;
-    },
-    fail () {
-      this.canSuccess = false;
-      return this
     }
-  }
+    public fail() {
+      this.canSuccess = false;
+      return this;
+    }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .progress {
-  position: fixed;
+   position: fixed;
   top: 0px;
   left: 0px;
   right: 0px;

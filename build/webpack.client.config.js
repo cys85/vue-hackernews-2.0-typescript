@@ -16,8 +16,9 @@ const config = merge(base, {
   plugins: [
     // strip dev-only code in Vue source
     new webpack.DefinePlugin({
+      'process.env': require(process.env.NODE_ENV === 'production' ? '../config/prod.env' : '../config/dev.env'),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      'process.env.VUE_ENV': '"client"'
+      'process.env.VUE_ENV': '"client"',
     }),
     // extract vendor chunks for better caching
     new webpack.optimize.CommonsChunkPlugin({

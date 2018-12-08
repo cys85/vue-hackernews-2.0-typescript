@@ -1,23 +1,23 @@
 {
-    "defaultSeverity": "error",
+    "defaultSeverity": "warning",
     "extends": [
-        "tslint:recommended"
+      "tslint:recommended"
     ],
-    "jsRules": {},
-    "rules": {
-        "quotemark": [
-            true,
-            "single"
-        ],
-        "indent": [
-            true
-        ],
-        "interface-name": [
-            false
-        ],
-        "arrow-parens": false,
-        // Pending fix for shorthand property names.
-        "object-literal-sort-keys": false
+    "linterOptions": {
+      "exclude": [
+        "node_modules/**"
+      ]
     },
-    "rulesDirectory": []
-}
+    "rules": {
+      "quotemark": [true, "single"],
+      "indent": [true, "spaces", 2],
+      "interface-name": false,
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "no-consecutive-blank-lines": false,
+      "no-console": false,
+      "variable-name": false,
+      "no-debugger": false
+    }
+  }
+  
