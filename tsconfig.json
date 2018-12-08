@@ -1,7 +1,13 @@
 {
   "strictPropertyInitialization": false,
   "compilerOptions": {
-    "target": "esnext",
+    "outDir": "./built/",
+    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "target": "es5",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",

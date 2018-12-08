@@ -1,3 +1,4 @@
+
 module.exports = {
   loaders: {
     // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
@@ -13,6 +14,7 @@ module.exports = {
   postcss: [
     require('autoprefixer')({
       browsers: ['last 3 versions']
-    })
+    }),
+    require('postcss-px2rem')({remUnit: 37.5})
   ]
 }

@@ -2,7 +2,6 @@ import Vue from 'vue';
 import 'es6-promise/auto';
 import { createApp } from './app';
 import ProgressBar from './components/ProgressBar.vue';
-import 'lib-flexible/flexible';
 
 // global progress bar
 const bar: any = Vue.prototype.$bar = new Vue(ProgressBar).$mount();
