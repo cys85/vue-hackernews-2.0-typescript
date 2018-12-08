@@ -35,7 +35,7 @@ export default class MainLayout extends Vue {
   footer {
     padding-bottom: 0;
     box-sizing: content-box;
-    height: 1.33333rem;
+    height: 100px;
     background-color: #fe2c55;
     border-top: 1px solid rgba(22,24,35,.2);
   }
