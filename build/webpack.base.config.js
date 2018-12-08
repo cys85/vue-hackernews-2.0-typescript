@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
+const { VueLoaderPlugin } = require('vue-loader')
 const isProd = process.env.NODE_ENV === 'production'
 
 function resolve (dir) {
@@ -31,7 +31,11 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueConfig
+        options:  Object.assign(vueConfig, {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
+        }) 
       },
       {
         test: /\.tsx?$/,
@@ -44,9 +48,9 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        options: {
-          presets: ['es2015']
-        },
+        // options: {
+        //   presets: ['es2015']
+        // },
         exclude: /node_modules/
       },
       {
@@ -57,15 +61,30 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
+      // {
+      //   test: /\.css$/,
+      //   use: isProd
+      //     ? ExtractTextPlugin.extract({
+      //         use: 'css-loader?minimize',
+      //         fallback: 'vue-style-loader'
+      //       })
+      //     : ['vue-style-loader', 'css-loader']
+      // }
       {
-        test: /\.css$/,
+        test: /\.less$/,
         use: isProd
           ? ExtractTextPlugin.extract({
-              use: 'css-loader?minimize',
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: { minimize: true }
+                },
+                'less-loader'
+              ],
               fallback: 'vue-style-loader'
             })
-          : ['vue-style-loader', 'css-loader']
-      }
+          : ['vue-style-loader', 'css-loader', 'less-loader']
+      },
     ]
   },
   resolve: {
@@ -81,6 +100,7 @@ module.exports = {
   },
   plugins: isProd
     ? [
+        new VueLoaderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
           compress: { warnings: false }
         }),
@@ -90,6 +110,7 @@ module.exports = {
         })
       ]
     : [
+        new VueLoaderPlugin(),
         new FriendlyErrorsPlugin()
       ]
 }
