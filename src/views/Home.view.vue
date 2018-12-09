@@ -20,7 +20,7 @@ import { of, Observable } from 'rxjs';
           error: reject
         });
       });
-    console.log(toPromise(of(() => getTest())))
+    console.log(toPromise(of(() => getTest())).then(console.log))
     return Promise.resolve([]);
   },
 })
