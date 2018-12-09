@@ -5,14 +5,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '../components/HelloWorld.vue'; // @ is an alias to /src
-import { getTest } from '@/api';
 
 @Component({
   // components: {
   //   HelloWorld,
   // },
   asyncData() {
-    return getTest()
+    return Promise.resolve([]);
   },
 })
 export default class HomeView extends Vue {

@@ -22,7 +22,6 @@ export function createAPI(options: CreateAPIOptions) {
     instance.interceptors.request.use(
       ((config: AxiosRequestConfig): AxiosRequestConfig => {
         const token = SSR.token || '';
-        console.log('token->', token)
         if (token) {
           config.headers.token = token;
         }
