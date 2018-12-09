@@ -6,11 +6,18 @@
     </div>
     <div class="main-layout__footer-warp">
       <footer>
-        <van-tabbar v-model="active">
-          <van-tabbar-item icon="shop">标签</van-tabbar-item>
-          <van-tabbar-item icon="chat" dot>标签</van-tabbar-item>
-          <van-tabbar-item icon="records" info="5">标签</van-tabbar-item>
-          <van-tabbar-item icon="gold-coin" info="20">标签</van-tabbar-item>
+        <van-tabbar v-model="tabbarActive">
+          <van-tabbar-item v-for="tab in tabbar" :key="tab.path">
+            <span>{{tab.name}}</span>
+            <i
+              class="iconfont"
+              :class="[
+                props.active ? tab.activeIcon : tab.normalIcon,
+                props.active ? 'activeIcon' : 'normalIcon'
+              ]"
+              slot="icon"
+              slot-scope="props" />
+          </van-tabbar-item>
         </van-tabbar>
       </footer>
     </div>
@@ -20,6 +27,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import {Tabbar, TabbarItem } from 'vant';
+import { namespace } from 'vuex-class';
+import { AppTabbar } from '@/store/app/interface';
+
+const app = namespace('app')
 
 @Component({
   components: {
@@ -28,7 +39,8 @@ import {Tabbar, TabbarItem } from 'vant';
   }
 })
 export default class MainLayout extends Vue {
-  active = 0
+  @app.State('tabbar') tabbar: AppTabbar
+  @app.State('tabbarActive') tabbarActive: number
 }
 </script>
 
@@ -58,6 +70,19 @@ export default class MainLayout extends Vue {
     height: 51px;
     background-color: #fff;
     // border-top: 1px solid rgba(22,24,35,.2);
+  }
+
+  // icon
+
+  .iconfont {
+    font-size: 20px
+  }
+
+  .activeIcon {
+    color: #1989fa;
+  }
+  .normalIcon {
+
   }
 }
 </style>
