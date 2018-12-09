@@ -2,6 +2,7 @@ import Vue from 'vue';
 import 'es6-promise/auto';
 import { createApp } from './app';
 import ProgressBar from './components/ProgressBar.vue';
+import { forkJoin } from 'rxjs';
 
 // global progress bar
 const bar: any = Vue.prototype.$bar = new Vue(ProgressBar).$mount();
@@ -42,20 +43,22 @@ router.onReady(() => {
     const prevMatched = router.getMatchedComponents(from);
     let diffed = false;
     const activated = matched.filter((c: any, i: any) => {
-      return diffed || (diffed = (prevMatched[i] !== c));
+      return diffed || (diffed = (prevMatched[i].name && c.name && prevMatched[i].name !== c.name ));
     })
-    const asyncDataHooks: any = activated.map((c: any) => c.asyncData).filter((_: any) => _);
+    const asyncDataHooks = activated.map((c: any) => (new c()).$options.asyncData).filter((_: any) => _);
     if (!asyncDataHooks.length) {
       return next();
     }
 
     bar.start();
-    Promise.all(asyncDataHooks.map((hook: any) => hook({ store, route: to })))
-      .then(() => {
-        bar.finish();
-        next();
-      })
-      .catch(next);
+    forkJoin(...asyncDataHooks.map((hook: any) => hook({ store, route: to })))
+      .subscribe(
+        () => {
+          bar.finish();
+          next();
+        },
+        (err) => next()
+      )
   });
 
   // actually mount to DOM

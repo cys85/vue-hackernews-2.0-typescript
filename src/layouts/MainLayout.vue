@@ -6,8 +6,12 @@
     </div>
     <div class="main-layout__footer-warp">
       <footer>
-        <van-tabbar v-model="tabbarActive">
-          <van-tabbar-item v-for="tab in tabbar" :key="tab.path">
+        <van-tabbar 
+          :value="tabbarActive">
+          <van-tabbar-item
+            v-for="tab in tabbar" 
+            :key="tab.path"
+            :to="tab.path" >
             <span>{{tab.name}}</span>
             <i
               class="iconfont"
@@ -40,7 +44,7 @@ const app = namespace('app')
 })
 export default class MainLayout extends Vue {
   @app.State('tabbar') tabbar: AppTabbar
-  @app.State('tabbarActive') tabbarActive: number
+  @app.Getter('tabbarActive') tabbarActive: number
 }
 </script>
 

@@ -4,7 +4,6 @@ import Router, { RouterOptions } from 'vue-router'
 Vue.use(Router)
 
 // route-level code splitting
-import MainLayout from '../layouts/MainLayout.vue';
 
 export function createRouter (): Router {
   return new Router({
@@ -13,21 +12,29 @@ export function createRouter (): Router {
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes: [
       {
-        path: '/',
+        path: '/home',
         name: 'home',
-        component: MainLayout,
-         children: [
-          {
-            path: '/home',
-            name: 'index',
-            component: () => import('../views/Home.vue'),
-          },
-          {
-            path: '/list-demo',
-            name: 'list-demo',
-            component: () => import('../views/vant-demo/ListDemo.vue'),
-          }
-        ]
+        component: () => import('../views/Home.view.vue'),
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('../views/Order.view.vue'),
+      },
+      {
+        path: '/waybill',
+        name: 'waybill',
+        component: () => import('../views/Waybill.view.vue'),
+      },
+      {
+        path: '/fee',
+        name: 'fee',
+        component: () => import('../views/Fee.view.vue'),
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () => import('../views/My.view.vue'),
       },
     ]
   } as RouterOptions)

@@ -9,5 +9,4 @@ export type AppTabbar = {
 
 export interface State {
   tabbar: AppTabbar,
-  tabbarActive: number
 }

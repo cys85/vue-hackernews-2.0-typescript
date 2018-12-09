@@ -3,6 +3,7 @@ declare module '*.vue' {
   export default Vue;
 }
 
+declare var global: any
 
 declare var System: any;
 

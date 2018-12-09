@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <router-view/>
+    <MainLayout />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-@Component
+import MainLayout from '@/layouts/MainLayout.vue';
+@Component({
+  components: {
+    MainLayout
+  }
+})
 export default class App extends Vue {
 }
 </script>

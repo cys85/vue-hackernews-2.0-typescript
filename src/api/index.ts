@@ -2,31 +2,9 @@ import ErrorCatcher from './middlewares/ErrorCatcher';
 import ErrorHandle from './middlewares/ErrorHandle';
 import EventBus from '../core/event-bus';
 import Filter from './middlewares/Filter';
-import axios, { AxiosRequestConfig, AxiosError, AxiosPromise } from 'axios';
-import {getStorage} from '../core/storage';
 import { createAPI } from 'create-api';
 
-const instance = axios.create({
-  baseURL: process.env.BASE_API_URL as string,
-  timeout: process.env.AJAX_TIMEOUT as number | undefined,
-});
-
-instance.interceptors.request.use(
-  ((config: AxiosRequestConfig): AxiosRequestConfig => {
-    const token = getStorage('token');
-    if (token) {
-      config.headers.token = token;
-    }
-    return config;
-  }),
-  (error: AxiosError): AxiosPromise => {
-    // Do something with request error
-    console.log(error); // for debug
-    return Promise.reject(error);
-  },
-);
-
-const app = createAPI({instance});
+const app = createAPI();
 
 export const errorCatcher = new ErrorCatcher().catch();
 export const errorHandle = new ErrorHandle({
@@ -53,3 +31,9 @@ export const errorHandle = new ErrorHandle({
 export const filter = new Filter({
   chain: 'data.result',
 }).run();
+
+
+const API_TEST = 'http://rap2api.taobao.org/app/mock/120014/web/purchase/purchaseinorder'
+
+
+export const getTest = app.get(API_TEST)

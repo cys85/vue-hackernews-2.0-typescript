@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-  </div>
+  <section class="waybill">运单</section>
 </template>
 
 <script lang="ts">
@@ -15,6 +14,6 @@ import HelloWorld from '../components/HelloWorld.vue'; // @ is an alias to /src
   //   return Promise.resolve([]);
   // },
 })
-export default class Home extends Vue {
+export default class WaybillView extends Vue {
 }
 </script>
