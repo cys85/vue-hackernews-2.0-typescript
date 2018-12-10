@@ -3,5 +3,8 @@ import { Route } from 'vue-router';
 
 export interface RootState {
   app: AppState,
-  route: Route
+  route: Route,
+  cookies: {
+    [pros: string]: any
+  }
 }

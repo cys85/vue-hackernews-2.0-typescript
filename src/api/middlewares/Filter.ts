@@ -4,7 +4,7 @@ import { Observable, OperatorFunction } from 'rxjs';
  * @Author: cys
  * @Date: 2018-11-21 10:34:03
  * @Last Modified by: cys
- * @Last Modified time: 2018-11-21 10:48:47
+ * @Last Modified time: 2018-12-10 11:03:03
  * @description: 过滤器
  */
 import {get} from 'lodash';
@@ -29,7 +29,7 @@ const defaultOptions = {
 };
 
 class Filter implements FilterInterface {
-  public options: FilterOptions;
+  public options!: FilterOptions;
   constructor(options: FilterConfiguration ) {
     this.options = {
       ...defaultOptions,

@@ -5,6 +5,7 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
+const cookieParser = require('cookie-parser')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -15,7 +16,7 @@ const serverInfo =
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
 
 const app = express()
-
+app.use(cookieParser())
 function createRenderer (bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
   return createBundleRenderer(bundle, Object.assign(options, {
@@ -99,7 +100,8 @@ function render (req, res) {
 
   const context = {
     title: 'feok-ssr-template', // default title
-    url: req.url
+    url: req.url,
+    cookies: req.cookies
   }
   renderer.renderToString(context, (err, html) => {
     if (err) {

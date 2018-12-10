@@ -12,6 +12,11 @@ export default (context: any) => {
     const s: any = isDev && Date.now()
     const { app, router, store } = createApp()
 
+    // 注入 cookie
+    if (context.cookies) {
+      store.state.cookies = context.cookies
+    }
+
     const { url } = context
     const { fullPath } = router.resolve(url).route
 

@@ -1,29 +1,25 @@
 <template>
-  <section class="home">首页</section>
+  <section class="home">首页{{data}}</section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import {namespace} from 'vuex-class';
 import HelloWorld from '../components/HelloWorld.vue'; // @ is an alias to /src
 import { getTest } from '@/api';
 import { of, Observable } from 'rxjs';
+
+const home = namespace('home')
 
 @Component({
   // components: {
   //   HelloWorld,
   // },
-  asyncData() {
-    const toPromise = (obs: any) =>
-      new Promise((resolve, reject) => {
-        obs.subscribe({
-          complete: resolve,
-          error: reject
-        });
-      });
-    console.log(toPromise(of(() => getTest())).then(console.log))
-    return Promise.resolve([]);
+  asyncData({store, route}) {
+    return store.dispatch('home/getTest')
   },
 })
 export default class HomeView extends Vue {
+  @home.State('data') data!: any
 }
 </script>
