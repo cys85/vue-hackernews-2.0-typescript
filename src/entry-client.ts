@@ -9,18 +9,18 @@ document.body.appendChild(bar.$el);
 
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
-  beforeRouteUpdate (to: any, from: any, next: any) {
+  beforeRouteUpdate(to: any, from: any, next: any) {
     const { asyncData } = (this as any).$options;
     if (asyncData) {
       asyncData({
         store: (this as any).$store,
-        route: to
+        route: to,
       }).then(next).catch(next);
     } else {
       next();
     }
-  }
-})
+  },
+});
 
 const { app, router, store }: any = createApp();
 
@@ -39,12 +39,18 @@ router.onReady(() => {
   // async components are resolved.
   router.beforeResolve((to: any, from: any, next: any) => {
     const matched = router.getMatchedComponents(to);
+    console.log('matched: ', matched);
     const prevMatched = router.getMatchedComponents(from);
+    console.log('prevMatched: ', prevMatched);
     let diffed = false;
     const activated = matched.filter((c: any, i: any) => {
-      return diffed || (diffed = (prevMatched[i].name && c.name && prevMatched[i].name !== c.name ));
-    })
+      console.log(prevMatched[i].cid, c.cid);
+      return diffed || (diffed = (prevMatched[i] !== c ));
+    });
+    console.log('activated: ', activated);
+
     const asyncDataHooks = activated.map((c: any) => (new c()).$options.asyncData).filter((_: any) => _);
+    console.log('asyncDataHooks: ', asyncDataHooks);
     if (!asyncDataHooks.length) {
       return next();
     }

@@ -1,13 +1,16 @@
 <template>
-  <section class="fee">费用</section>
+  <main-layout>
+    <section class="fee" slot="body">费用</section>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
+import MainLayout from '@/layouts/MainLayout.vue';
 @Component({
-  // components: {
-  // },
+  components: {
+    MainLayout
+  },
   // asyncData() {
   //   return Promise.resolve([]);
   // },

@@ -1,14 +1,16 @@
 <template>
-  <section class="my">我的</section>
+  <main-layout>
+    <section class="my" slot="body">我的</section>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
+import MainLayout from '@/layouts/MainLayout.vue';
 @Component({
-  // components: {
-  //   HelloWorld,
-  // },
+  components: {
+    MainLayout,
+  },
   // asyncData() {
   //   return Promise.resolve([]);
   // },

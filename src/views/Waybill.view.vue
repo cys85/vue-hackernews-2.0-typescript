@@ -1,15 +1,17 @@
 <template>
-  <section class="waybill">运单</section>
+  <main-layout>
+    <section class="waybill" slot="body">运单</section>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '../components/HelloWorld.vue'; // @ is an alias to /src
+import MainLayout from '@/layouts/MainLayout.vue';
 
 @Component({
-  // components: {
-  //   HelloWorld,
-  // },
+  components: {
+    MainLayout,
+  },
   // asyncData() {
   //   return Promise.resolve([]);
   // },

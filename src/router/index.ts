@@ -1,16 +1,28 @@
-import Vue from 'vue'
-import Router, { RouterOptions } from 'vue-router'
+import Vue from 'vue';
+import Router, { RouterOptions } from 'vue-router';
 
-Vue.use(Router)
+Vue.use(Router);
 
-// route-level code splitting
+const demoRouter = [
+  {
+    path: '/nav-bar-demo',
+    name: 'NavBarDemo',
+    component: () => import('../views/vant-demo/NavBarDemo.view.vue'),
+  },
+  {
+    path: '/list-demo',
+    name: 'ListDemo',
+    component: () => import('../views/vant-demo/ListDemo.view.vue'),
+  },
+];
 
-export function createRouter (): Router {
+export function createRouter(): Router {
   return new Router({
     mode: 'history',
     fallback: false,
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes: [
+      ...demoRouter,
       {
         path: '/home',
         name: 'home',
@@ -36,6 +48,6 @@ export function createRouter (): Router {
         name: 'my',
         component: () => import('../views/My.view.vue'),
       },
-    ]
-  } as RouterOptions)
+    ],
+  } as RouterOptions);
 }

@@ -1,30 +1,30 @@
-function getTitle (vm: any) {
-  const { title } = vm.$options
+function getTitle(vm: any) {
+  const { title } = vm.$options;
   if (title) {
     return typeof title === 'function'
       ? title.call(vm)
-      : title
+      : title;
   }
 }
 
 const serverTitleMixin = {
-  created () {
-    const title = getTitle(this)
+  created() {
+    const title = getTitle(this);
     if (title) {
-      (this as any).$ssrContext.title = `Vue HN 2.0 | ${title}`
+      (this as any).$ssrContext.title = `Vue HN 2.0 | ${title}`;
     }
-  }
-}
+  },
+};
 
 const clientTitleMixin = {
-  mounted () {
-    const title = getTitle(this)
+  mounted() {
+    const title = getTitle(this);
     if (title) {
-      document.title = `Vue HN 2.0 | ${title}`
+      document.title = `Vue HN 2.0 | ${title}`;
     }
-  }
-}
+  },
+};
 
 export default process.env.VUE_ENV === 'server'
   ? serverTitleMixin
-  : clientTitleMixin
+  : clientTitleMixin;

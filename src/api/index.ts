@@ -4,7 +4,6 @@ import EventBus from '../core/event-bus';
 import Filter from './middlewares/Filter';
 import { createAPI } from 'create-api';
 import axios, { AxiosRequestConfig, AxiosError, AxiosPromise } from 'axios';
-import { parseTokenFormCookie } from '@/util/token';
 import {get} from 'lodash';
 
 const instance = axios.create({
